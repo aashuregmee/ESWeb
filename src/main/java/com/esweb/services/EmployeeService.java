@@ -70,7 +70,7 @@ public class EmployeeService extends ElasticSearchConnection {
 
     private List<Employee> searchEmployees() throws NoNodeAvailableException{
 
-        SearchResponse response = client.prepareSearch(ESWebConstants.INDEX_NAME)
+        SearchResponse response = client.prepareSearch(ESWebConstants.INDEX_NAME).setSize(100)
                 .setTypes(ESWebConstants.TYPE_NAME)
                 .setQuery(boolQueryBuilder)
                 .execute()
