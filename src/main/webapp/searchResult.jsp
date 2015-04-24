@@ -56,6 +56,7 @@
           </tr>
       </thead>
       <tbody>
+        <c:set var="total" value="${0}"/>
         <c:forEach items="${employees}" var="employee">
             <tr>
               <td>${employee.empId}</td>
@@ -66,7 +67,17 @@
               <td>${employee.salary}</td>
               <td>${employee.department}</td>
             </tr>
+            <c:set var="total" value="${total + employee.salary}"/>
         </c:forEach>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>${total}</td>
+                <td>--</td>
+            </tr>
       </tbody>
 </table>
 </body>
