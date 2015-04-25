@@ -4,6 +4,7 @@ import com.esweb.commons.ESWebConstants;
 import com.esweb.domain.Employee;
 import com.esweb.services.EmployeeService;
 import org.elasticsearch.client.transport.NoNodeAvailableException;
+import org.elasticsearch.indices.IndexMissingException;
 
 import java.io.IOException;
 
@@ -16,9 +17,9 @@ public class InsertEmployeeServlet extends javax.servlet.http.HttpServlet {
 
         boolean inserted = false;
         String message = ESWebConstants.ERROR_MSG;
-
+        int id;
         try {
-            int id = Integer.parseInt(request.getParameter(ESWebConstants.ID));
+            id = Integer.parseInt(request.getParameter(ESWebConstants.ID));
             String firstName = request.getParameter(ESWebConstants.FIRST_NAME);
             String lastName = request.getParameter(ESWebConstants.LAST_NAME);
             String gender = request.getParameter(ESWebConstants.GENDER);
@@ -29,19 +30,13 @@ public class InsertEmployeeServlet extends javax.servlet.http.HttpServlet {
             Employee employee = new Employee(id, firstName, lastName, gender, age, salary, department);
 
             inserted = employeeService.insertEmployee(employee);
+            request.setAttribute("maxId", id + 1);
         }catch (NoNodeAvailableException e){
 
             message = ESWebConstants.ES_START_MSG;
         }catch (NumberFormatException e){
 
             e.printStackTrace();
-        }
-        try {
-            int maxId = employeeService.getMaxId();
-            request.setAttribute("maxId", maxId + 1);
-        }catch (NoNodeAvailableException e){
-
-            message = ESWebConstants.ES_START_MSG;
         }
         request.setAttribute("message", message);
         request.setAttribute("inserted", inserted);
@@ -57,6 +52,9 @@ public class InsertEmployeeServlet extends javax.servlet.http.HttpServlet {
         }catch (NoNodeAvailableException e){
 
             message = ESWebConstants.ES_START_MSG;
+        }catch (IndexMissingException e){
+
+            request.setAttribute("maxId", 1);
         }
 
         request.setAttribute("message", message);
