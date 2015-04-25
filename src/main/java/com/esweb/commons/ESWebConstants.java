@@ -15,6 +15,6 @@ public class ESWebConstants {
     public final static String SALARY = "salary";
     public final static String DEPARTMENT = "department";
 
-    public final static String ES_START_MSG = "Please start elastic search to continue.";
+    public final static String ES_START_MSG = "Please start elastic search or change the name of the cluster to 'asimes' to continue.";
     public final static String ERROR_MSG = "Error!! Could not insert employee";
 }
