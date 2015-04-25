@@ -1,5 +1,6 @@
 package com.esweb;
 
+import com.esweb.commons.ESWebConstants;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
@@ -16,7 +17,7 @@ public abstract class ElasticSearchConnection {
     public ElasticSearchConnection(){
 
         Settings settings = ImmutableSettings.settingsBuilder()
-                .put("cluster.name", "asimes").build();
+                .put("cluster.name", ESWebConstants.CLUSTER_NAME).build();
         client = new TransportClient(settings)
                 .addTransportAddress(
                         new InetSocketTransportAddress("localhost", 9300)
