@@ -21,7 +21,7 @@
     </div>
     <div class="form-style-2">
         <form method="post">
-            <label for = "id">Id: </label><input type="text" name="id" class="input-field" value="${maxId}"><br>
+            <label for = "id">Id: </label><input type="text" name="id" class="input-field" value="${maxId > 0 ? maxId : ""}"><br>
             <label for = "firstName">First Name: </label><input type="text" name="firstName" class="input-field"><br>
             <label for = "lastName">Last Name: </label><input type="text" name="lastName" class="input-field"><br>
             <label for = "gender">Gender: </label>
